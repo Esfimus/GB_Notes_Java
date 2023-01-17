@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         NotesFragment notesFragment = new NotesFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container, notesFragment)
+                .replace(R.id.fragment_notes, notesFragment)
                 .commit();
     }
 }

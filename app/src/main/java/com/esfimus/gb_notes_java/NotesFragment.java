@@ -1,5 +1,6 @@
 package com.esfimus.gb_notes_java;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,9 +31,10 @@ public class NotesFragment extends Fragment {
     public void initNotes(View view) {
         // creating some sample notes
         Notepad notepad = new Notepad();
-        notepad.addNote("First note First note First note First note First note First note", "This is the first note This is the first note This is the first note This is the first note This is the first note This is the first note This is the first note This is the first note This is the first note This is the first note This is the first note ", "23.01.14");
-        notepad.addNote("Second note", "This is the second note", "23.01.15");
-        notepad.addNote("Third note", "This is the third note", "23.01.16");
+        notepad.addNote("First note First note First note First note First note First note", "This is the first note This is the first note This is the first note This is the first note This is the first note This is the first note This is the first note This is the first note This is the first note This is the first note This is the first note ");
+        notepad.addNote("Second note", "This is the second note");
+        notepad.addNote("Third note", "This is the third note");
+
 
         // constructing list of notes with only notes' titles
         LinearLayout layoutView = (LinearLayout) view;
@@ -47,11 +49,27 @@ public class NotesFragment extends Fragment {
     }
 
     public void showNote(int index, Notepad notepad) {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            showNoteLand(index, notepad);
+        } else {
+            showNotePort(index, notepad);
+        }
+    }
+
+    public void showNotePort(int index, Notepad notepad) {
         DetailsFragment detailsFragment = DetailsFragment.newInstance(index, notepad);
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container, detailsFragment);
-        fragmentTransaction.addToBackStack("noname");
+        fragmentTransaction.add(R.id.fragment_notes, detailsFragment);
+        fragmentTransaction.addToBackStack("");
+        fragmentTransaction.commit();
+    }
+
+    public void showNoteLand(int index, Notepad notepad) {
+        DetailsFragment detailsFragment = DetailsFragment.newInstance(index, notepad);
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_details, detailsFragment);
         fragmentTransaction.commit();
     }
 }
