@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GB_Notes_Java</string>
+    <string name="app_name">Notes</string>
     <string name="title">Title</string>
     <string name="note">Note</string>
     <string name="edit_note_button">Edit note button</string>

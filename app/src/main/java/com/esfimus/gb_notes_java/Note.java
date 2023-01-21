@@ -57,8 +57,8 @@ public class Note implements Parcelable {
         this.message = message;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDate() {
+        this.date = currentDateAndTime();
     }
 
     protected Note(Parcel in) {

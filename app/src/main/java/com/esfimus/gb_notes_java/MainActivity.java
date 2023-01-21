@@ -14,10 +14,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initView() {
-        NotesFragment notesFragment = new NotesFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_notes, notesFragment)
+                .replace(R.id.fragment_notes, new NotesFragment())
                 .commit();
     }
 }

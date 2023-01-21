@@ -1,11 +1,10 @@
 package com.esfimus.gb_notes_java;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,36 +41,13 @@ public class DetailsFragment extends Fragment {
             titleDetails.setText(note.getTitle());
             messageDetails.setText(note.getMessage());
             dateDetails.setText(note.getDate());
-
-            view.findViewById(R.id.floating_action_button).setOnClickListener(v -> toastCheck());
-
-            titleDetails.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    note.setTitle(s.toString());
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) { }
-            });
-
-            messageDetails.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    note.setMessage(s.toString());
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) { }
+            // starting new note fragment by FAB or long click
+            view.findViewById(R.id.floating_action_button).setOnClickListener(v -> initEditNoteFragment(note));
+            view.findViewById(R.id.fragment_details_container).setOnLongClickListener(v -> {
+                initEditNoteFragment(note);
+                return true;
             });
         }
-
     }
 
     public static DetailsFragment newInstance(Note note) {
@@ -83,7 +59,37 @@ public class DetailsFragment extends Fragment {
     }
 
     private void toastCheck() {
-        Toast.makeText(getContext(), "button works", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "button works", Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean isLand() {
+        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
+    private void initEditNoteFragment(Note note) {
+        if (isLand()) {
+            editNoteLand(note);
+        } else {
+            editNotePort(note);
+        }
+    }
+
+    private void editNotePort(Note note) {
+        requireActivity()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragment_notes, EditNoteFragment.newInstance(note))
+                .addToBackStack("")
+                .commit();
+    }
+
+    private void editNoteLand(Note note) {
+        requireActivity()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_details, EditNoteFragment.newInstance(note))
+                .addToBackStack("")
+                .commit();
     }
 
 }

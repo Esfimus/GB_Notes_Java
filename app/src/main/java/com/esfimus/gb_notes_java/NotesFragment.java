@@ -5,8 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,19 +75,19 @@ public class NotesFragment extends Fragment {
     }
 
     private void showNotePort(Note note) {
-        DetailsFragment detailsFragment = DetailsFragment.newInstance(note);
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_notes, detailsFragment);
-        fragmentTransaction.addToBackStack("");
-        fragmentTransaction.commit();
+        requireActivity()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragment_notes, DetailsFragment.newInstance(note))
+                .addToBackStack("")
+                .commit();
     }
 
     private void showNoteLand(Note note) {
-        DetailsFragment detailsFragment = DetailsFragment.newInstance(note);
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_details, detailsFragment);
-        fragmentTransaction.commit();
+        requireActivity()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_details, DetailsFragment.newInstance(note))
+                .commit();
     }
 }
