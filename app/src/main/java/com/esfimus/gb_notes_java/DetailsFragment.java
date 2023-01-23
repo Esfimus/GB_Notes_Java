@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class DetailsFragment extends Fragment {
 
@@ -56,10 +55,6 @@ public class DetailsFragment extends Fragment {
         args.putParcelable(CURRENT_NOTE, note);
         detailsFragment.setArguments(args);
         return detailsFragment;
-    }
-
-    private void toastCheck() {
-        Toast.makeText(getContext(), "button works", Toast.LENGTH_SHORT).show();
     }
 
     private boolean isLand() {

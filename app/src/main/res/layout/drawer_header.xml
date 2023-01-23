@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:background="@color/blueDayPrimaryDark"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/navigation_title"
+        android:textColor="@color/blueDayBackground"
+        android:backgroundTint="@color/blueDayPrimaryDark"
+        android:textSize="32sp" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/baseline_text_snippet_24"
+        android:backgroundTint="@color/blueDayPrimaryDark"/>
+
+</LinearLayout>
