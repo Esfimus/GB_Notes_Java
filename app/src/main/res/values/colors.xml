@@ -3,7 +3,7 @@
     <color name="blueDayPrimary">#3682D9</color>
     <color name="blueDayPrimaryDark">#0D249C</color>
     <color name="blueDayAccent">#142371</color>
-    <color name="blueDayBackground">#F2FDF2</color>
+    <color name="blueDayBackground">#FFFFFF</color>
     <color name="blueDayTextPlain">#091034</color>
     <color name="blueDayOnPrimary">#0E184E</color>
     <color name="blueNightPrimary">#3682D9</color>

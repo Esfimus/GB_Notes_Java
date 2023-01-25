@@ -1,14 +1,20 @@
 package com.esfimus.gb_notes_java;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DetailsFragment extends Fragment {
 
@@ -40,10 +46,30 @@ public class DetailsFragment extends Fragment {
             titleDetails.setText(note.getTitle());
             messageDetails.setText(note.getMessage());
             dateDetails.setText(note.getDate());
-            // starting new note fragment by FAB or long click
+            // starting new note fragment by FAB
             view.findViewById(R.id.floating_action_button).setOnClickListener(v -> initEditNoteFragment(note));
-            view.findViewById(R.id.fragment_details_container).setOnLongClickListener(v -> {
-                initEditNoteFragment(note);
+            // show popup menu delete for message text
+            messageDetails.setOnLongClickListener(v -> {
+                PopupMenu popupMenu = new PopupMenu(getContext(), v);
+                popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+                popupMenu.show();
+                // action on menu item click
+                popupMenu.setOnMenuItemClickListener(item -> {
+                    new AlertDialog.Builder(getContext())
+                            .setTitle("Confirm delete")
+                            .setMessage("Are you sure you want to delete the message?")
+                            .setCancelable(false)
+                            .setNegativeButton("No", (dialog, which) -> {
+                                Toast.makeText(getContext(), "Cancel delete", Toast.LENGTH_SHORT).show();
+                            })
+                            .setPositiveButton("Yes", (dialog, which) -> {
+                                note.setMessage("");
+                                messageDetails.setText("");
+                                Toast.makeText(getContext(), "Message was deleted", Toast.LENGTH_SHORT).show();
+                            })
+                            .show();
+                    return false;
+                });
                 return true;
             });
         }
